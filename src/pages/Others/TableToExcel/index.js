@@ -20,26 +20,31 @@ const columns = [{
 }];
 
 const tmpData=[{
+	key: "1",
     name:'测试',
     age:20,
     address:'湖北省武汉市'
 },
 {
+	key: "2",
     name:'测试',
     age:20,
     address:'湖北省武汉市'
 },
 {
+	key: "3",
     name:'测试',
     age:20,
     address:'湖北省武汉市'
 },
 {
+	key: "4",
     name:'测试',
     age:20,
     address:'湖北省武汉市'
 },
 {
+	key: "5",
     name:'测试',
     age:20,
     address:'湖北省武汉市'
