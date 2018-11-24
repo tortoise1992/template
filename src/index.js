@@ -8,14 +8,14 @@ import zhCN from 'antd/lib/locale-provider/zh_CN';
 import { LocaleProvider } from 'antd';
 import 'moment/locale/zh-cn';
 
-import RouterPage from './router'
+import MainRouter from './router/router'
 
 class App extends React.Component {
     render(){
         return (<LocaleProvider locale={zhCN}>
             <Provider store={store}>
                 <Router>
-                    <RouterPage />
+                    <MainRouter />
                 </Router>
             </Provider>
         </LocaleProvider>);
