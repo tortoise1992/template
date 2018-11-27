@@ -1,4 +1,4 @@
-// 不暴露光放脚手架的配置文件，安装'react-app-rewired'依赖，可直接重写配置
+// 不暴露官方脚手架的配置文件，安装'react-app-rewired'依赖，可直接重写配置
 const { injectBabelPlugin } = require('react-app-rewired');
 // 安装'react-app-rewire-less'依赖，引入less
 const rewireLess = require('react-app-rewire-less');
@@ -78,7 +78,7 @@ module.exports = function override(config, env) {
                 ...config.resolve,
                 alias: {
                     //配置src目录的别名
-                    //将绝对路劲根文件指向src
+                    //将绝对路径根文件指向src
                     '@': path.resolve(__dirname, 'src')
                 }
             },
