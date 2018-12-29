@@ -1,0 +1,44 @@
+@import '../config/config.less';
+.header{
+    position: fixed;
+    height: @headerHeight;
+    line-height: @headerHeight;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    background-color: @headerBg;
+    box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.30);
+    
+}
+.content-wrapper{
+    height: 100%;
+    padding-top: @headerHeight;
+    box-sizing: border-box;
+    position: relative;
+    .sideNav{
+        position:absolute;
+        left: 0;
+        top: 0;
+        padding-top: @headerHeight;
+        width: @navWidth;
+        height: 100%;
+        box-sizing: border-box;
+    }
+    .content{
+        position:absolute;
+        left: 0;
+        top: 0;
+        padding-top: @headerHeight;
+        padding-left: @navWidth;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        .container{
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            background-color: @mainBg;
+        }
+    }
+}
