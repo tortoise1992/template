@@ -1,9 +1,11 @@
 
-// ref: https://umijs.org/config/
 export default {  
-  "disableCSSModules": true,   
+  // 兼容性配置
+  targets: {
+    ie: 9,
+  },
+  // "disableCSSModules": true,   
   plugins: [
-    // ref: https://umijs.org/plugin/umi-plugin-react.html
     ['umi-plugin-react', {
       antd: true,
       dva: false,
@@ -11,11 +13,13 @@ export default {
       title: 'create',
       dll: true,
       hardSource: false,
+      // 配置routes下面的components不会解析成路由
       routes: {
         exclude: [
           /components/,
         ],
       },
     }],
-  ],
+  ]
+  
 }
