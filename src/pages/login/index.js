@@ -2,9 +2,11 @@ import React from 'react';
 import { connect} from 'react-redux';
 import { loginAction } from '../../redux/actions/loginAction';
 import { postAction } from '../../util/axios';
-import { Input, Icon, Button, message, Form } from 'antd';
+import { Input, Icon, Button, Form } from 'antd';
+import router from 'umi/router';
 import BgImg from './bg.jpg';
 import Logo from './logo.png';
+import {setLocal} from '../../util/tool'
 // import md5 from 'md5'
 const FormItem = Form.Item;
 
@@ -59,9 +61,11 @@ class LoginPage extends React.Component{
         this.props.form.validateFields((err, values) => {
             if (!err) {
 				let { relationNo, userPassword } = values;
-				// 为了和五纵代码统一加md5
-				userPassword=md5(userPassword)
-				this.props.handleLogin({relationNo, userPassword});
+				this.props.handleLogin({relationNo, userPassword}).then(status=>{
+					if(status){
+						router.replace('/')
+					}
+				});
             }
         });
     }
@@ -120,35 +124,22 @@ class LoginPage extends React.Component{
 const mapDispatchToProps = (dispatch) => {
     return {
         handleLogin (data) {
-			const curUrl = `/centralized/login/login`;
-            postAction(
-            	curUrl,data
-            ).then (function (res) {
-                if (res.success) {
-					setLocal("userInfo", JSON.stringify(res.obj));
-					setLocal("loginStatus", true);
-					// 存token
-					setLocal("token", res.obj.token);
-					// 登录成功之后请求菜单
-					postAction(
-						'/centralized/public/queryLoginInfo',
-						{
-							'systemNo':'ZNWD',
-							'token':res.obj.token
-						}
-					).then(res=>{
-						if(res.success){
-							let memuInfo=res.obj.menuInfo.menuList
-							// 存token
-							setLocal("menuInfo", JSON.stringify(memuInfo));
-							const action  = loginAction(true);					
-							dispatch(action);
-						}
-					})
-				} else {
-					message.error(res.obj)
-				}
-            })
+			const curUrl = `/bigdata/user/login`;
+			// 此处处理异步请求返回一个promise对象，供回调跳转路由使用
+			return new Promise((resolve,reject)=>{
+				postAction(
+					curUrl,data
+				).then (function (res) {
+					if (res.success) {
+						setLocal("userInfo", JSON.stringify(res.obj));
+						setLocal("loginStatus", true);
+						const action  = loginAction(true);			
+						dispatch(action);	
+						resolve(true)				
+					}
+				})
+			})
+            
         }
     }
 }

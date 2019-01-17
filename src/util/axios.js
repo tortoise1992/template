@@ -4,7 +4,7 @@ import store from '../redux/store';
 import { message } from 'antd';
 import { loadingAction } from '../redux/actions/loadingAction';
 import { loginAction } from '../redux/actions/loginAction'
-
+import {getLocal,clearLocal} from './tool'
 //请求 头contentTpye类型
 const contentTpyeArrs = [
     "application/x-www-form-urlencoded;charset=UTF-8",

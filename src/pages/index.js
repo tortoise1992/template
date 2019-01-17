@@ -1,7 +1,6 @@
+import Redirect from 'umi/redirect';
 export default function() {
   return (
-    <div className='test'>
-测试哈哈哈
-    </div>
+    <Redirect  to="/user"></Redirect>    
   );
 }

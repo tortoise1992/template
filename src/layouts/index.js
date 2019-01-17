@@ -9,6 +9,8 @@ import Link from 'umi/link';
 import {Provider} from 'react-redux';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import { LocaleProvider } from 'antd';
+import withRouter from 'umi/withRouter';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import store from '../redux/store';
 import logo from '../assets/logo.svg';
 import BlankLayout from './blankLayout'
@@ -47,7 +49,7 @@ class BasicLayout extends Component {
         <div className={styles.logo} key="logo">
           <Link to="/">
             <img src={logo} alt="logo" />
-            <h1>Ant Design Pro</h1>
+            <h1>大数据平台 2.0</h1>
           </Link>
         </div>
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
@@ -69,7 +71,11 @@ class BasicLayout extends Component {
         </Header>
         <Content style={{ margin: '20px 20px 0', height: '100%', overflow: 'hidden' }}>
           {/*此处可加面包屑*/}
-          {this.props.children}
+            <TransitionGroup>
+              <CSSTransition key={this.props.location.pathname} classNames="fade" timeout={300}>
+                {this.props.children}
+              </CSSTransition>
+            </TransitionGroup>          
         </Content>
         <Footer style={{ textAlign: 'center' }}>
           AHUIFE ©2019 大数据平台模板
@@ -77,14 +83,15 @@ class BasicLayout extends Component {
       </Layout>
     </Layout>
     }
-    return (
-      <LocaleProvider locale={zhCN}>
-        <Provider store={store}>
-            {layout}
-        </Provider>
-      </LocaleProvider>
+    return (      
+          <LocaleProvider locale={zhCN}>
+            <Provider store={store}>            
+              {layout}              
+            </Provider>
+          </LocaleProvider>       
+      
     )
   }
 }
 
-export default BasicLayout;
+export default withRouter(BasicLayout);
