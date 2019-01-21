@@ -12,7 +12,7 @@ export default {
       antd: true,
       dva: false,
       dynamicImport: true,
-      title: '大数据平台',
+      // title: '大数据平台',
       dll: true,
       hardSource: false,
       // 打开国际化配置项

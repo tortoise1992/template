@@ -3,72 +3,42 @@
 | 通用布局
 |--------------------------------------------------
 */
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Menu } from 'antd';
 import { Component } from 'react';
-import Link from 'umi/link';
 import {Provider} from 'react-redux';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import { LocaleProvider } from 'antd';
 import withRouter from 'umi/withRouter';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import store from '../redux/store';
-import logo from '../assets/logo.svg';
 import BlankLayout from './blankLayout'
-import styles from './index.less';
-const { Header, Content, Footer, Sider } = Layout;
+import HeaderLayout from './header'
+import SiderLayout from './sider'
+import FooterLayout from './footer'
+const { Content} = Layout;
 const SubMenu = Menu.SubMenu;
 class BasicLayout extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       collapsed: false,
     };
   }
-
+  
   toggle = () => {
     this.setState({
       collapsed: !this.state.collapsed,
     });
   }
-
   render() {
     let layout=null
-
     if (this.props.location.pathname === '/login') {
       layout = <BlankLayout>{this.props.children}</BlankLayout>
     }else{
       layout=<Layout>
-      <Sider
-        collapsible
-        trigger={null}
-        collapsed={this.state.collapsed}
-        className={styles.sider}
-        width={240}
-      >
-        <div className={styles.logo} key="logo">
-          <Link to="/">
-            <img src={logo} alt="logo" />
-            <h1>大数据平台 2.0</h1>
-          </Link>
-        </div>
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-          <Menu.Item key="user">
-            <Link to="/user">
-              <Icon type="user" />
-              <span>首页</span>
-            </Link>
-          </Menu.Item>
-        </Menu>
-      </Sider>
-      <Layout>
-        <Header style={{ background: '#fff', padding: 0 }}>
-          <Icon
-            className={styles.trigger}
-            type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-            onClick={this.toggle}
-          />
-        </Header>
+      <SiderLayout collapsed={this.state.collapsed}></SiderLayout>
+      <Layout>        
+        <HeaderLayout collapsed={this.state.collapsed} toggle={this.toggle}></HeaderLayout>
         <Content style={{ margin: '20px 20px 0', height: '100%', overflow: 'hidden' }}>
           {/*此处可加面包屑*/}
             <TransitionGroup>
@@ -77,9 +47,7 @@ class BasicLayout extends Component {
               </CSSTransition>
             </TransitionGroup>          
         </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          AHUIFE ©2019 大数据平台模板
-        </Footer>
+        <FooterLayout></FooterLayout>
       </Layout>
     </Layout>
     }

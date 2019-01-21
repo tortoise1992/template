@@ -3,13 +3,13 @@
  * Routes:
  *   - ./src/routes/PrivateRoute.js 
  */
-
 import React, { Component } from 'react'
-export default class User extends Component {
+
+export default class Analysis extends Component {
   render() {
     return (
       <div>
-        我是用户页面dadad
+        分析页
       </div>
     )
   }
